@@ -15,6 +15,8 @@ Supported geometry types are:
 * [`*geos.Geom`](https://pkg.go.dev/github.com/twpayne/go-geos#Geom) from
   [`github.com/twpayne/go-geos`](https://github.com/twpayne/go-geos)
 
+* Well Known Binary (WKB)
+
 `geobabel` exists because no single geometry library is perfect. For example:
 
 * `github.com/paulmach/orb` is a pure Go library with friendly API, excellent
@@ -38,11 +40,17 @@ geometries and use a geometric operation that is only available in `go-geos`.
 
 ## Supported conversions
 
-|                     | To `geom.T` | To `*geos.Geom` | To `orb.Geometry` |
-| ------------------- | ----------- | --------------- | ----------------- |
-| From `geom.T`       | n/a         | no              | yes               |
-| From `*geos.Geom`   | no          | n/a             | yes               |
-| From `orb.Geometry` | yes         | yes             | n/a               |
+|                     | To `geom.T` | To `*geos.Geom` | To `orb.Geometry` | To WKB |
+| ------------------- | ----------- | --------------- | ----------------- | ------ |
+| From `geom.T`       | n/a         | no              | yes               | yes    |
+| From `*geos.Geom`   | no          | n/a             | yes               | yes    |
+| From `orb.Geometry` | yes         | yes             | n/a               | yes    |
+| From WKB            | yes         | yes             | yes               | n/a    |
+
+Note that WKB
+You can also convert geometries via WKB. The WKB conversion functions support
+all geometry types except LinearRings (WKB has no way to represent LinearRings)
+and are designed to work on valid geometries. They 
 
 ## License
 
