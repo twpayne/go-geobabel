@@ -20,8 +20,6 @@ github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKs
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/twpayne/go-geom v1.5.0 h1:seB5SE58wtTDOljFXFnyz2UmKI2SU86tRb2l4yFWH6c=
 github.com/twpayne/go-geom v1.5.0/go.mod h1:Kz4sX4LtdesDQgkhsMERazLlH/NiCg90s6FPaNr0KNI=
-github.com/twpayne/go-geos v0.9.0 h1:Dcgmnqyj6EeaGlq6WH3yZ2uKGQ3e/VxdnxBhWu5mXe0=
-github.com/twpayne/go-geos v0.9.0/go.mod h1:ghmhzeDJuLrFJFvOXUbn+sjPukdKYh11fxaGVq3e7Hk=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

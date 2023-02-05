@@ -41,7 +41,7 @@ geometries and use a geometric operation that is only available in `go-geos`.
 |                     | To `geom.T` | To `*geos.Geom` | To `orb.Geometry` |
 | ------------------- | ----------- | --------------- | ----------------- |
 | From `geom.T`       | n/a         | no              | yes               |
-| From `*geos.Geom`   | no          | n/a             | yes               |
+| From `*geos.Geom`   | yes         | n/a             | yes               |
 | From `orb.Geometry` | yes         | yes             | n/a               |
 
 ## License
