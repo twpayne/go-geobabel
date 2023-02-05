@@ -58,10 +58,10 @@ func NewOrbRingFromGEOSGeom(geosGeom *geos.Geom) orb.Ring {
 func NewOrbPolygonFromGEOSGeom(geosGeom *geos.Geom) orb.Polygon {
 	geosNumInteriorRings := geosGeom.NumInteriorRings()
 	orbPolygon := make(orb.Polygon, 0, 1+geosNumInteriorRings)
-	orbRing := NewOrbGeometryFromGEOSGeom(geosGeom.ExteriorRing()).(orb.Ring)
+	orbRing := NewOrbGeometryFromGEOSGeom(geosGeom.ExteriorRing()).(orb.Ring) //nolint:forcetypeassert
 	orbPolygon = append(orbPolygon, orbRing)
 	for i := 0; i < geosNumInteriorRings; i++ {
-		orbRing := NewOrbGeometryFromGEOSGeom(geosGeom.InteriorRing(i)).(orb.Ring)
+		orbRing := NewOrbGeometryFromGEOSGeom(geosGeom.InteriorRing(i)).(orb.Ring) //nolint:forcetypeassert
 		orbPolygon = append(orbPolygon, orbRing)
 	}
 	return orbPolygon
@@ -71,7 +71,7 @@ func NewOrbMultiPointFromGEOSGeom(geosGeom *geos.Geom) orb.MultiPoint {
 	geosNumGeometries := geosGeom.NumGeometries()
 	orbMultiPoint := make(orb.MultiPoint, 0, geosNumGeometries)
 	for i := 0; i < geosNumGeometries; i++ {
-		orbPoint := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.Point)
+		orbPoint := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.Point) //nolint:forcetypeassert
 		orbMultiPoint = append(orbMultiPoint, orbPoint)
 	}
 	return orbMultiPoint
@@ -81,7 +81,7 @@ func NewOrbMultiLineStringFromGEOSGeom(geosGeom *geos.Geom) orb.MultiLineString 
 	geosNumGeometries := geosGeom.NumGeometries()
 	orbMultiLineString := make(orb.MultiLineString, 0, geosNumGeometries)
 	for i := 0; i < geosNumGeometries; i++ {
-		orbLineString := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.LineString)
+		orbLineString := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.LineString) //nolint:forcetypeassert
 		orbMultiLineString = append(orbMultiLineString, orbLineString)
 	}
 	return orbMultiLineString
@@ -91,7 +91,7 @@ func NewOrbMultiPolygonFromGEOSGeom(geosGeom *geos.Geom) orb.MultiPolygon {
 	geosNumGeometries := geosGeom.NumGeometries()
 	orbMultiPolygon := make(orb.MultiPolygon, 0, geosNumGeometries)
 	for i := 0; i < geosNumGeometries; i++ {
-		orbPolygon := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.Polygon)
+		orbPolygon := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.Polygon) //nolint:forcetypeassert
 		orbMultiPolygon = append(orbMultiPolygon, orbPolygon)
 	}
 	return orbMultiPolygon

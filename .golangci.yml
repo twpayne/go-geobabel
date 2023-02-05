@@ -1,0 +1,120 @@
+linters:
+  enable:
+  - asciicheck
+  - bidichk
+  - bodyclose
+  - contextcheck
+  - decorder
+  - depguard
+  - dogsled
+  - dupl
+  - dupword
+  - durationcheck
+  - errcheck
+  - errchkjson
+  - errname
+  - errorlint
+  - execinquery
+  - exportloopref
+  - forbidigo
+  - forcetypeassert
+  - gci
+  - gocritic
+  - godot
+  - goerr113
+  - gofmt
+  - gofumpt
+  - goimports
+  - gomodguard
+  - goprintffuncname
+  - gosec
+  - gosimple
+  - govet
+  - importas
+  - ineffassign
+  - interfacebloat
+  - ireturn
+  - lll
+  - loggercheck
+  - makezero
+  - misspell
+  - nilerr
+  - noctx
+  - nolintlint
+  - nosprintfhostport
+  - prealloc
+  - predeclared
+  - promlinter
+  - reassign
+  - revive
+  - staticcheck
+  - stylecheck
+  - tagliatelle
+  - testableexamples
+  - tenv
+  - thelper
+  - typecheck
+  - unconvert
+  - unparam
+  - unused
+  - whitespace
+  disable:
+  - asasalint
+  - cyclop
+  - exhaustive
+  - exhaustivestruct
+  - exhaustruct
+  - funlen
+  - gochecknoglobals
+  - gochecknoinits
+  - gocognit
+  - goconst
+  - gocyclo
+  - godox
+  - goheader
+  - gomnd
+  - gomoddirectives
+  - maintidx
+  - maligned
+  - nakedret
+  - nestif
+  - nilnil
+  - nlreturn
+  - nonamedreturns
+  - nosnakecase
+  - paralleltest
+  - rowserrcheck # https://github.com/golangci/golangci-lint/issues/2649
+  - sqlclosecheck # https://github.com/golangci/golangci-lint/issues/2649
+  - structcheck # https://github.com/golangci/golangci-lint/issues/2649
+  - testpackage
+  - tparallel
+  - varnamelen
+  - wastedassign # https://github.com/golangci/golangci-lint/issues/2649
+  - wrapcheck
+  - wsl
+
+linters-settings:
+  gci:
+    sections:
+    - standard
+    - default
+    - prefix(github.com/twpayne/go-geobabel)
+  gofumpt:
+    extra-rules: true
+    lang-version: '1.20'
+    module-path: github.com/twpayne/go-geobabel
+  goimports:
+    local-prefixes: github.com/twpayne/go-geobabel
+  ireturn:
+    allow:
+    - github\.com/paulmach/orb\.Geometry
+    - github\.com/twpayne/go-geom\.T
+  misspell:
+    locale: US
+  stylecheck:
+    checks:
+    - all
+
+issues:
+  include:
+  - EXC0011
