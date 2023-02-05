@@ -7,7 +7,7 @@ import (
 	"github.com/twpayne/go-geom"
 )
 
-func NewGeomGeometryFromOrbGeometry(orbGeometry orb.Geometry) geom.T {
+func NewGeomTFromOrbGeometry(orbGeometry orb.Geometry) geom.T {
 	switch orbGeometry := orbGeometry.(type) {
 	case orb.Point:
 		return NewGeomPointFromOrbPoint(orbGeometry)
@@ -68,8 +68,8 @@ func NewGeomMultiPolygonFromOrbMultiPolygon(orbMultiPolygon orb.MultiPolygon) *g
 func NewGeomGeometryCollectionFromOrbCollection(orbCollection orb.Collection) *geom.GeometryCollection {
 	geomGeometries := make([]geom.T, 0, len(orbCollection))
 	for _, orbGeometery := range orbCollection {
-		geomGeometry := NewGeomGeometryFromOrbGeometry(orbGeometery)
-		geomGeometries = append(geomGeometries, geomGeometry)
+		geomT := NewGeomTFromOrbGeometry(orbGeometery)
+		geomGeometries = append(geomGeometries, geomT)
 	}
 	return geom.NewGeometryCollection().MustPush(geomGeometries...)
 }

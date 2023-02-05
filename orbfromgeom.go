@@ -7,26 +7,26 @@ import (
 	"github.com/twpayne/go-geom"
 )
 
-func NewOrbGeometryFromGeomGeometry(geomGeometry geom.T) orb.Geometry {
-	switch geomGeometry := geomGeometry.(type) {
+func NewOrbGeometryFromGeomT(geomT geom.T) orb.Geometry {
+	switch geomT := geomT.(type) {
 	case *geom.Point:
-		return orbPointFromGeomPoint(geomGeometry)
+		return orbPointFromGeomPoint(geomT)
 	case *geom.LineString:
-		return orbLineStringFromGeomLineString(geomGeometry)
+		return orbLineStringFromGeomLineString(geomT)
 	case *geom.LinearRing:
-		return orbRingFromGeomLinearRing(geomGeometry)
+		return orbRingFromGeomLinearRing(geomT)
 	case *geom.Polygon:
-		return orbPolygonFromGeomPolygon(geomGeometry)
+		return orbPolygonFromGeomPolygon(geomT)
 	case *geom.MultiPoint:
-		return orbMultiPointFromGeomMultiPoint(geomGeometry)
+		return orbMultiPointFromGeomMultiPoint(geomT)
 	case *geom.MultiLineString:
-		return orbMultiLineStringFromGeomMultiLineString(geomGeometry)
+		return orbMultiLineStringFromGeomMultiLineString(geomT)
 	case *geom.MultiPolygon:
-		return orbMultiPolygonFromGeomMultiPolygon(geomGeometry)
+		return orbMultiPolygonFromGeomMultiPolygon(geomT)
 	case *geom.GeometryCollection:
-		return orbCollectionFromGeomGeometryCollection(geomGeometry)
+		return orbCollectionFromGeomGeometryCollection(geomT)
 	default:
-		panic(fmt.Sprintf("%T: unsupported type", geomGeometry))
+		panic(fmt.Sprintf("%T: unsupported type", geomT))
 	}
 }
 
@@ -130,8 +130,8 @@ func orbCollectionFromGeomGeometryCollection(geomGeometryCollection *geom.Geomet
 	geomNumGeoms := geomGeometryCollection.NumGeoms()
 	orbCollection := make(orb.Collection, 0, geomNumGeoms)
 	for i := 0; i < geomNumGeoms; i++ {
-		geomGeometry := geomGeometryCollection.Geom(i)
-		orbGeometry := NewOrbGeometryFromGeomGeometry(geomGeometry)
+		geomT := geomGeometryCollection.Geom(i)
+		orbGeometry := NewOrbGeometryFromGeomT(geomT)
 		orbCollection = append(orbCollection, orbGeometry)
 	}
 	return orbCollection

@@ -126,12 +126,12 @@ func TestAll(t *testing.T) {
 			require.True(t, tc.geos.IsValid())
 			require.Equal(t, "Valid Geometry", tc.geos.IsValidReason())
 
-			assert.Equal(t, tc.geom, geobabel.NewGeomGeometryFromOrbGeometry(tc.orb))
+			assert.Equal(t, tc.geom, geobabel.NewGeomTFromOrbGeometry(tc.orb))
 
 			assert.True(t, tc.geos.Equals(geobabel.NewGEOSGeomFromOrbGeometry(geosContext, tc.orb)))
 
 			assert.Equal(t, tc.orb, geobabel.NewOrbGeometryFromGEOSGeom(tc.geos))
-			assert.Equal(t, tc.orb, geobabel.NewOrbGeometryFromGeomGeometry(tc.geom))
+			assert.Equal(t, tc.orb, geobabel.NewOrbGeometryFromGeomT(tc.geom))
 		})
 	}
 }
