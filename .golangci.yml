@@ -33,7 +33,6 @@ linters:
   - importas
   - ineffassign
   - interfacebloat
-  - ireturn
   - lll
   - loggercheck
   - makezero
@@ -74,6 +73,7 @@ linters:
   - goheader
   - gomnd
   - gomoddirectives
+  - ireturn
   - maintidx
   - maligned
   - nakedret
@@ -105,10 +105,6 @@ linters-settings:
     module-path: github.com/twpayne/go-geobabel
   goimports:
     local-prefixes: github.com/twpayne/go-geobabel
-  ireturn:
-    allow:
-    - github\.com/paulmach/orb\.Geometry
-    - github\.com/twpayne/go-geom\.T
   misspell:
     locale: US
   stylecheck:
