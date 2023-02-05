@@ -47,10 +47,7 @@ geometries and use a geometric operation that is only available in `go-geos`.
 | From `orb.Geometry` | yes         | yes             | n/a               | yes    |
 | From WKB            | yes         | yes             | yes               | n/a    |
 
-Note that WKB
-You can also convert geometries via WKB. The WKB conversion functions support
-all geometry types except LinearRings (WKB has no way to represent LinearRings)
-and are designed to work on valid geometries. They 
+Note that WKB does not support LinearRings as a top-level geometry type.
 
 ## License
 
