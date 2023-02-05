@@ -7,7 +7,7 @@ import (
 	"github.com/twpayne/go-geos"
 )
 
-func NewGEOSGeometryFromOrbGeometry(geosContext *geos.Context, orbGeometry orb.Geometry) *geos.Geom {
+func NewGEOSGeomFromOrbGeometry(geosContext *geos.Context, orbGeometry orb.Geometry) *geos.Geom {
 	switch orbGeometry := orbGeometry.(type) {
 	case orb.Point:
 		return geosContext.NewPoint(geosCoordsFromOrbPoint(orbGeometry))
@@ -20,29 +20,29 @@ func NewGEOSGeometryFromOrbGeometry(geosContext *geos.Context, orbGeometry orb.G
 	case orb.MultiPoint:
 		geosPoints := make([]*geos.Geom, 0, len(orbGeometry))
 		for _, orbPoint := range orbGeometry {
-			geosPoint := NewGEOSGeometryFromOrbGeometry(geosContext, orbPoint)
+			geosPoint := NewGEOSGeomFromOrbGeometry(geosContext, orbPoint)
 			geosPoints = append(geosPoints, geosPoint)
 		}
 		return geosContext.NewCollection(geos.TypeIDMultiPoint, geosPoints)
 	case orb.MultiLineString:
 		geosLineStrings := make([]*geos.Geom, 0, len(orbGeometry))
 		for _, orbLineString := range orbGeometry {
-			geosLineString := NewGEOSGeometryFromOrbGeometry(geosContext, orbLineString)
+			geosLineString := NewGEOSGeomFromOrbGeometry(geosContext, orbLineString)
 			geosLineStrings = append(geosLineStrings, geosLineString)
 		}
 		return geosContext.NewCollection(geos.TypeIDMultiLineString, geosLineStrings)
 	case orb.MultiPolygon:
 		geosPolygons := make([]*geos.Geom, 0, len(orbGeometry))
 		for _, orbPolygon := range orbGeometry {
-			geosPolygon := NewGEOSGeometryFromOrbGeometry(geosContext, orbPolygon)
+			geosPolygon := NewGEOSGeomFromOrbGeometry(geosContext, orbPolygon)
 			geosPolygons = append(geosPolygons, geosPolygon)
 		}
 		return geosContext.NewCollection(geos.TypeIDMultiPolygon, geosPolygons)
 	case orb.Collection:
 		geosGeometries := make([]*geos.Geom, 0, len(orbGeometry))
 		for _, orbGeometry := range orbGeometry {
-			geosGeometry := NewGEOSGeometryFromOrbGeometry(geosContext, orbGeometry)
-			geosGeometries = append(geosGeometries, geosGeometry)
+			geosGeom := NewGEOSGeomFromOrbGeometry(geosContext, orbGeometry)
+			geosGeometries = append(geosGeometries, geosGeom)
 		}
 		return geosContext.NewCollection(geos.TypeIDGeometryCollection, geosGeometries)
 	default:

@@ -7,36 +7,36 @@ import (
 	"github.com/twpayne/go-geos"
 )
 
-func NewOrbGeometryFromGEOSGeometry(geosGeometry *geos.Geom) orb.Geometry {
-	switch geosGeometry.TypeID() {
+func NewOrbGeometryFromGEOSGeom(geosGeom *geos.Geom) orb.Geometry {
+	switch geosGeom.TypeID() {
 	case geos.TypeIDPoint:
-		return NewOrbPointFromGEOSGeometry(geosGeometry)
+		return NewOrbPointFromGEOSGeom(geosGeom)
 	case geos.TypeIDLineString:
-		return NewOrbLineStringFromGEOSGeometry(geosGeometry)
+		return NewOrbLineStringFromGEOSGeom(geosGeom)
 	case geos.TypeIDLinearRing:
-		return NewOrbRingFromGEOSGeometry(geosGeometry)
+		return NewOrbRingFromGEOSGeom(geosGeom)
 	case geos.TypeIDPolygon:
-		return NewOrbPolygonFromGEOSGeometry(geosGeometry)
+		return NewOrbPolygonFromGEOSGeom(geosGeom)
 	case geos.TypeIDMultiPoint:
-		return NewOrbMultiPointFromGEOSGeometry(geosGeometry)
+		return NewOrbMultiPointFromGEOSGeom(geosGeom)
 	case geos.TypeIDMultiLineString:
-		return NewOrbMultiLineStringFromGEOSGeometry(geosGeometry)
+		return NewOrbMultiLineStringFromGEOSGeom(geosGeom)
 	case geos.TypeIDMultiPolygon:
-		return NewOrbMultiPolygonFromGEOSGeometry(geosGeometry)
+		return NewOrbMultiPolygonFromGEOSGeom(geosGeom)
 	case geos.TypeIDGeometryCollection:
-		return NewOrbCollectionFromGEOSGeometry(geosGeometry)
+		return NewOrbCollectionFromGEOSGeom(geosGeom)
 	default:
-		panic(fmt.Sprintf("%s: unsupported GEOS type", geosGeometry.Type()))
+		panic(fmt.Sprintf("%s: unsupported GEOS type", geosGeom.Type()))
 	}
 }
 
-func NewOrbPointFromGEOSGeometry(geosGeometry *geos.Geom) orb.Point {
-	geosCoords := geosGeometry.CoordSeq().ToCoords()
+func NewOrbPointFromGEOSGeom(geosGeom *geos.Geom) orb.Point {
+	geosCoords := geosGeom.CoordSeq().ToCoords()
 	return orb.Point{geosCoords[0][0], geosCoords[0][1]}
 }
 
-func NewOrbLineStringFromGEOSGeometry(geosGeometry *geos.Geom) orb.LineString {
-	geosCoords := geosGeometry.CoordSeq().ToCoords()
+func NewOrbLineStringFromGEOSGeom(geosGeom *geos.Geom) orb.LineString {
+	geosCoords := geosGeom.CoordSeq().ToCoords()
 	orbLineString := make(orb.LineString, 0, len(geosCoords))
 	for _, coord := range geosCoords {
 		orbPoint := orb.Point{coord[0], coord[1]}
@@ -45,8 +45,8 @@ func NewOrbLineStringFromGEOSGeometry(geosGeometry *geos.Geom) orb.LineString {
 	return orbLineString
 }
 
-func NewOrbRingFromGEOSGeometry(geosGeometry *geos.Geom) orb.Ring {
-	geosCoords := geosGeometry.CoordSeq().ToCoords()
+func NewOrbRingFromGEOSGeom(geosGeom *geos.Geom) orb.Ring {
+	geosCoords := geosGeom.CoordSeq().ToCoords()
 	orbRing := make(orb.Ring, 0, len(geosCoords))
 	for _, coord := range geosCoords {
 		orbPoint := orb.Point{coord[0], coord[1]}
@@ -55,53 +55,53 @@ func NewOrbRingFromGEOSGeometry(geosGeometry *geos.Geom) orb.Ring {
 	return orbRing
 }
 
-func NewOrbPolygonFromGEOSGeometry(geosGeometry *geos.Geom) orb.Polygon {
-	geosNumInteriorRings := geosGeometry.NumInteriorRings()
+func NewOrbPolygonFromGEOSGeom(geosGeom *geos.Geom) orb.Polygon {
+	geosNumInteriorRings := geosGeom.NumInteriorRings()
 	orbPolygon := make(orb.Polygon, 0, 1+geosNumInteriorRings)
-	orbRing := NewOrbGeometryFromGEOSGeometry(geosGeometry.ExteriorRing()).(orb.Ring)
+	orbRing := NewOrbGeometryFromGEOSGeom(geosGeom.ExteriorRing()).(orb.Ring)
 	orbPolygon = append(orbPolygon, orbRing)
 	for i := 0; i < geosNumInteriorRings; i++ {
-		orbRing := NewOrbGeometryFromGEOSGeometry(geosGeometry.InteriorRing(i)).(orb.Ring)
+		orbRing := NewOrbGeometryFromGEOSGeom(geosGeom.InteriorRing(i)).(orb.Ring)
 		orbPolygon = append(orbPolygon, orbRing)
 	}
 	return orbPolygon
 }
 
-func NewOrbMultiPointFromGEOSGeometry(geosGeometry *geos.Geom) orb.MultiPoint {
-	geosNumGeometries := geosGeometry.NumGeometries()
+func NewOrbMultiPointFromGEOSGeom(geosGeom *geos.Geom) orb.MultiPoint {
+	geosNumGeometries := geosGeom.NumGeometries()
 	orbMultiPoint := make(orb.MultiPoint, 0, geosNumGeometries)
 	for i := 0; i < geosNumGeometries; i++ {
-		orbPoint := NewOrbGeometryFromGEOSGeometry(geosGeometry.Geometry(i)).(orb.Point)
+		orbPoint := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.Point)
 		orbMultiPoint = append(orbMultiPoint, orbPoint)
 	}
 	return orbMultiPoint
 }
 
-func NewOrbMultiLineStringFromGEOSGeometry(geosGeometry *geos.Geom) orb.MultiLineString {
-	geosNumGeometries := geosGeometry.NumGeometries()
+func NewOrbMultiLineStringFromGEOSGeom(geosGeom *geos.Geom) orb.MultiLineString {
+	geosNumGeometries := geosGeom.NumGeometries()
 	orbMultiLineString := make(orb.MultiLineString, 0, geosNumGeometries)
 	for i := 0; i < geosNumGeometries; i++ {
-		orbLineString := NewOrbGeometryFromGEOSGeometry(geosGeometry.Geometry(i)).(orb.LineString)
+		orbLineString := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.LineString)
 		orbMultiLineString = append(orbMultiLineString, orbLineString)
 	}
 	return orbMultiLineString
 }
 
-func NewOrbMultiPolygonFromGEOSGeometry(geosGeometry *geos.Geom) orb.MultiPolygon {
-	geosNumGeometries := geosGeometry.NumGeometries()
+func NewOrbMultiPolygonFromGEOSGeom(geosGeom *geos.Geom) orb.MultiPolygon {
+	geosNumGeometries := geosGeom.NumGeometries()
 	orbMultiPolygon := make(orb.MultiPolygon, 0, geosNumGeometries)
 	for i := 0; i < geosNumGeometries; i++ {
-		orbPolygon := NewOrbGeometryFromGEOSGeometry(geosGeometry.Geometry(i)).(orb.Polygon)
+		orbPolygon := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i)).(orb.Polygon)
 		orbMultiPolygon = append(orbMultiPolygon, orbPolygon)
 	}
 	return orbMultiPolygon
 }
 
-func NewOrbCollectionFromGEOSGeometry(geosGeometry *geos.Geom) orb.Collection {
-	geosNumGeometries := geosGeometry.NumGeometries()
+func NewOrbCollectionFromGEOSGeom(geosGeom *geos.Geom) orb.Collection {
+	geosNumGeometries := geosGeom.NumGeometries()
 	orbCollection := make(orb.Collection, 0, geosNumGeometries)
 	for i := 0; i < geosNumGeometries; i++ {
-		orbGeometry := NewOrbGeometryFromGEOSGeometry(geosGeometry.Geometry(i))
+		orbGeometry := NewOrbGeometryFromGEOSGeom(geosGeom.Geometry(i))
 		orbCollection = append(orbCollection, orbGeometry)
 	}
 	return orbCollection

@@ -128,9 +128,9 @@ func TestAll(t *testing.T) {
 
 			assert.Equal(t, tc.geom, geobabel.NewGeomGeometryFromOrbGeometry(tc.orb))
 
-			assert.True(t, tc.geos.Equals(geobabel.NewGEOSGeometryFromOrbGeometry(geosContext, tc.orb)))
+			assert.True(t, tc.geos.Equals(geobabel.NewGEOSGeomFromOrbGeometry(geosContext, tc.orb)))
 
-			assert.Equal(t, tc.orb, geobabel.NewOrbGeometryFromGEOSGeometry(tc.geos))
+			assert.Equal(t, tc.orb, geobabel.NewOrbGeometryFromGEOSGeom(tc.geos))
 			assert.Equal(t, tc.orb, geobabel.NewOrbGeometryFromGeomGeometry(tc.geom))
 		})
 	}
