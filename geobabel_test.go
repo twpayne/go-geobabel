@@ -3,9 +3,8 @@ package geobabel_test
 import (
 	"testing"
 
+	"github.com/alecthomas/assert/v2"
 	"github.com/paulmach/orb"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"github.com/twpayne/go-geom"
 	"github.com/twpayne/go-geos"
 
@@ -125,8 +124,8 @@ func TestAll(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			require.True(t, tc.geosGeom.IsValid())
-			require.Equal(t, "Valid Geometry", tc.geosGeom.IsValidReason())
+			assert.True(t, tc.geosGeom.IsValid())
+			assert.Equal(t, "Valid Geometry", tc.geosGeom.IsValidReason())
 
 			assert.Equal(t, tc.geomT, geobabel.NewGeomTFromOrbGeometry(tc.orbGeometry))
 
@@ -137,7 +136,7 @@ func TestAll(t *testing.T) {
 
 			if tc.skipWKB == "" {
 				geomWKB, err := geobabel.WKBFromGeomT(tc.geomT)
-				require.NoError(t, err)
+				assert.NoError(t, err)
 				geosWKB := geobabel.WKBFromGEOSGeom(tc.geosGeom)
 				orbWKB := geobabel.WKBFromOrbGeometry(tc.orbGeometry)
 
