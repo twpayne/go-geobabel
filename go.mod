@@ -1,12 +1,14 @@
 module github.com/twpayne/go-geobabel
 
-go 1.19
+go 1.22
+
+toolchain go1.23.4
 
 require (
-	github.com/paulmach/orb v0.8.0
-	github.com/stretchr/testify v1.8.1
-	github.com/twpayne/go-geom v1.5.0
-	github.com/twpayne/go-geos v0.9.1
+	github.com/paulmach/orb v0.11.1
+	github.com/stretchr/testify v1.9.0
+	github.com/twpayne/go-geom v1.5.7
+	github.com/twpayne/go-geos v0.19.2
 )
 
 require (
