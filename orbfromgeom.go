@@ -62,14 +62,14 @@ func orbPolygonFromGeomPolygon(geomPolygon *geom.Polygon) orb.Polygon {
 	geomEnds := geomPolygon.Ends()
 	geomStride := geomPolygon.Stride()
 	geomStart := 0
-	orbPolygon := make(orb.Polygon, 0, len(geomEnds))
-	for _, geomEnd := range geomEnds {
+	orbPolygon := make(orb.Polygon, len(geomEnds))
+	for i, geomEnd := range geomEnds {
 		orbRing := make(orb.Ring, 0, (geomEnd-geomStart)/geomStride)
-		for i := geomStart; i < geomEnd; i += geomStride {
-			orbPoint := orb.Point{geomFlatCoords[i], geomFlatCoords[i+1]}
+		for j := geomStart; j < geomEnd; j += geomStride {
+			orbPoint := orb.Point{geomFlatCoords[j], geomFlatCoords[j+1]}
 			orbRing = append(orbRing, orbPoint)
 		}
-		orbPolygon = append(orbPolygon, orbRing)
+		orbPolygon[i] = orbRing
 		geomStart = geomEnd
 	}
 	return orbPolygon
@@ -91,14 +91,14 @@ func orbMultiLineStringFromGeomMultiLineString(geomMultiLineString *geom.MultiLi
 	geomEnds := geomMultiLineString.Ends()
 	geomStride := geomMultiLineString.Stride()
 	geomStart := 0
-	orbMultiLineString := make(orb.MultiLineString, 0, len(geomEnds))
-	for _, geomEnd := range geomEnds {
+	orbMultiLineString := make(orb.MultiLineString, len(geomEnds))
+	for i, geomEnd := range geomEnds {
 		orbLineString := make(orb.LineString, 0, (geomEnd-geomStart)/geomStride)
-		for i := geomStart; i < geomEnd; i += geomStride {
-			orbPoint := orb.Point{geomFlatCoords[i], geomFlatCoords[i+1]}
+		for j := geomStart; j < geomEnd; j += geomStride {
+			orbPoint := orb.Point{geomFlatCoords[j], geomFlatCoords[j+1]}
 			orbLineString = append(orbLineString, orbPoint)
 		}
-		orbMultiLineString = append(orbMultiLineString, orbLineString)
+		orbMultiLineString[i] = orbLineString
 		geomStart = geomEnd
 	}
 	return orbMultiLineString
@@ -109,30 +109,30 @@ func orbMultiPolygonFromGeomMultiPolygon(geomMultiPolygon *geom.MultiPolygon) or
 	geomEndss := geomMultiPolygon.Endss()
 	geomStride := geomMultiPolygon.Stride()
 	geomStart := 0
-	orbMultiPolygon := make(orb.MultiPolygon, 0, len(geomEndss))
-	for _, geomEnds := range geomEndss {
-		orbPolygon := make(orb.Polygon, 0, len(geomEnds))
-		for _, geomEnd := range geomEnds {
+	orbMultiPolygon := make(orb.MultiPolygon, len(geomEndss))
+	for i, geomEnds := range geomEndss {
+		orbPolygon := make(orb.Polygon, len(geomEnds))
+		for j, geomEnd := range geomEnds {
 			orbRing := make(orb.Ring, 0, (geomEnd-geomStart)/geomStride)
-			for i := geomStart; i < geomEnd; i += geomStride {
-				orbPoint := orb.Point{geomFlatCoords[i], geomFlatCoords[i+1]}
+			for k := geomStart; k < geomEnd; k += geomStride {
+				orbPoint := orb.Point{geomFlatCoords[k], geomFlatCoords[k+1]}
 				orbRing = append(orbRing, orbPoint)
 			}
-			orbPolygon = append(orbPolygon, orbRing)
+			orbPolygon[j] = orbRing
 			geomStart = geomEnd
 		}
-		orbMultiPolygon = append(orbMultiPolygon, orbPolygon)
+		orbMultiPolygon[i] = orbPolygon
 	}
 	return orbMultiPolygon
 }
 
 func orbCollectionFromGeomGeometryCollection(geomGeometryCollection *geom.GeometryCollection) orb.Collection {
 	geomNumGeoms := geomGeometryCollection.NumGeoms()
-	orbCollection := make(orb.Collection, 0, geomNumGeoms)
-	for i := 0; i < geomNumGeoms; i++ {
+	orbCollection := make(orb.Collection, geomNumGeoms)
+	for i := range geomNumGeoms {
 		geomT := geomGeometryCollection.Geom(i)
 		orbGeometry := NewOrbGeometryFromGeomT(geomT)
-		orbCollection = append(orbCollection, orbGeometry)
+		orbCollection[i] = orbGeometry
 	}
 	return orbCollection
 }
