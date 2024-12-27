@@ -1,3 +1,6 @@
+run:
+  go: '1.22'
+
 linters:
   enable:
   - asciicheck
@@ -5,7 +8,6 @@ linters:
   - bodyclose
   - contextcheck
   - decorder
-  - depguard
   - dogsled
   - dupl
   - dupword
@@ -14,14 +16,12 @@ linters:
   - errchkjson
   - errname
   - errorlint
-  - execinquery
-  - exportloopref
   - forbidigo
   - forcetypeassert
   - gci
   - gocritic
   - godot
-  - goerr113
+  - err113
   - gofmt
   - gofumpt
   - goimports
@@ -57,11 +57,34 @@ linters:
   - unparam
   - unused
   - whitespace
-  disable:
+  - rowserrcheck
+  - sqlclosecheck
+  - wastedassign
   - asasalint
+  - canonicalheader
+  - containedctx
+  - copyloopvar
+  - fatcontext
+  - ginkgolinter
+  - gocheckcompilerdirectives
+  - gochecksumtype
+  - iface
+  - inamedparam
+  - intrange
+  - mirror
+  - musttag
+  - perfsprint
+  - protogetter
+  - recvcheck
+  - sloglint
+  - spancheck
+  - tagalign
+  - testifylint
+  - usestdlibvars
+  - zerologlint
+  disable:
   - cyclop
   - exhaustive
-  - exhaustivestruct
   - exhaustruct
   - funlen
   - gochecknoglobals
@@ -71,27 +94,22 @@ linters:
   - gocyclo
   - godox
   - goheader
-  - gomnd
   - gomoddirectives
   - ireturn
   - maintidx
-  - maligned
   - nakedret
   - nestif
   - nilnil
   - nlreturn
   - nonamedreturns
-  - nosnakecase
   - paralleltest
-  - rowserrcheck # https://github.com/golangci/golangci-lint/issues/2649
-  - sqlclosecheck # https://github.com/golangci/golangci-lint/issues/2649
-  - structcheck # https://github.com/golangci/golangci-lint/issues/2649
   - testpackage
   - tparallel
   - varnamelen
-  - wastedassign # https://github.com/golangci/golangci-lint/issues/2649
   - wrapcheck
   - wsl
+  - mnd
+  - depguard
 
 linters-settings:
   gci:
@@ -101,7 +119,6 @@ linters-settings:
     - prefix(github.com/twpayne/go-geobabel)
   gofumpt:
     extra-rules: true
-    lang-version: '1.20'
     module-path: github.com/twpayne/go-geobabel
   goimports:
     local-prefixes: github.com/twpayne/go-geobabel
