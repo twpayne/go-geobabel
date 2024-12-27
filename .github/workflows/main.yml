@@ -15,20 +15,20 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt-get install -y libgeos-dev
-    - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-    - uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+    - uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a
       with:
         cache: true
         go-version: stable
-    - uses: golangci/golangci-lint-action@08e2f20817b15149a52b5b3ebe7de50aff2ba8c5
+    - uses: golangci/golangci-lint-action@971e284b6050e8a5849b72094c50ab08da042db8
   test:
     runs-on: ubuntu-latest
     steps:
     - name: install dependencies
       run: |
         sudo apt-get install -y libgeos-dev
-    - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-    - uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+    - uses: actions/setup-go@3041bf56c941b39c61721a86cd11f3bb1338122a
       with:
         cache: true
         go-version: stable
