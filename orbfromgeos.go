@@ -1,8 +1,6 @@
 package geobabel
 
 import (
-	"fmt"
-
 	"github.com/paulmach/orb"
 	"github.com/twpayne/go-geos"
 )
@@ -26,7 +24,7 @@ func NewOrbGeometryFromGEOSGeom(geosGeom *geos.Geom) orb.Geometry {
 	case geos.TypeIDGeometryCollection:
 		return NewOrbCollectionFromGEOSGeom(geosGeom)
 	default:
-		panic(fmt.Sprintf("%s: unsupported GEOS type", geosGeom.Type()))
+		panic(geosGeom.Type() + ": unsupported GEOS type")
 	}
 }
 
